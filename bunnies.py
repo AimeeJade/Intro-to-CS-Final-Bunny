@@ -13,7 +13,7 @@ def main():
     grass = Grass(xp)
     grass.grass.draw(win)
     
-    #bunny
+    #bunny -- all starting at x = 0 for now
     x = 0
     y = 0
     bun = Bunny(x, y)
@@ -34,19 +34,19 @@ def main():
     while win.checkKey() != 'q': 
         if bun.bun.getCenter().getX() >= xp - 10 and bun.bun.getCenter().getX() <= xp + 10:
             grass.grass.undraw()
-            #grass.draw(win)
+            #pause and make a new one
+            grass.grass.draw(win)
+        
         x += 3
         dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
         bun.bun.move(3, dy)
+        #bun.bun_move_right() -- tyring to figure this out
         a += 0.5
         db = 0
         fox.fox.move(a,db)
         c += 3
         dd = (140 * cos((c/90) + 18))/9
         eagle.eagle.move(5, dd)
-
-    
-
 
 #how to make grass and bunny simultanous
 class Grass:
@@ -65,8 +65,33 @@ class Bunny:
        self.y = y
        self.bun = Circle(Point(self.x, self.y), 50)
        self.bun.setFill("pink")
-       
-  
+
+   def bun_move_right(self, dy):
+       dx = 3
+       self.dx = dx
+       self.dx += 3
+       self.dy = dy
+       self.dy = (18 * pi * cos((3* pi * self.dx)/1000) * sin((3 * pi * self.dx)/1000))/(5 * abs(sin((3 * pi * self.dx)/1000)))
+       self.bun.move(self.dx, self.dy)
+
+class Foxy:
+   def __init__(self, a, b):
+       #x = randrange(0, 500)
+       #y = 100
+       self.a = a
+       self.b = b
+       self.fox = Circle(Point(self.a, self.b), 50)
+       self.fox.setFill("coral")
+
+class Eagle:
+   def __init__(self, c, d):
+       #x = randrange(0, 1000)
+       #y = 400 * sin((1/900)*self.x + 18) + 500
+       self.c = c
+       self.d = d
+       self.eagle = Circle(Point(self.c, self.d), 50)
+       self.eagle.setFill("peru")
+
 #    def Bunmovement(self, win):
 #        while self.x <= 1000:
 #            self.y = 10 * abs(40 * sin((3*pi/1000) * self.x))
@@ -88,15 +113,6 @@ class Bunny:
 #            time.sleep(0.05)
 #            bob.undraw()
 
-class Foxy:
-   def __init__(self, a, b):
-       #x = randrange(0, 500)
-       #y = 100
-       self.a = a
-       self.b = b
-       self.fox = Circle(Point(self.a, self.b), 50)
-       self.fox.setFill("coral")
-
 #    def Foxmovement(self, win):
 #        while self.x <= 1000:
 #            self.y = 100
@@ -116,15 +132,6 @@ class Foxy:
 #            self.x = self.x - 33
 #            time.sleep(0.05)
 #            lily.undraw()
-
-class Eagle:
-   def __init__(self, c, d):
-       #x = randrange(0, 1000)
-       #y = 400 * sin((1/900)*self.x + 18) + 500
-       self.c = c
-       self.d = d
-       self.eagle = Circle(Point(self.c, self.d), 50)
-       self.eagle.setFill("peru")
 
   
 #    def Eagmovement(self, win):
