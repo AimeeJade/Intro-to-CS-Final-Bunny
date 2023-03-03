@@ -14,28 +14,32 @@ def main():
     grass.grass.draw(win)
     
     #bunny -- all starting at x = 0 for now
-    x = 0
-    y = 0
+    x = randrange(0, 1000)
+    y = 10 * abs(40 * sin((3 * pi/1000) * x))
     bun = Bunny(x, y)
     bun.bun.draw(win)
 
     #fox
-    a = 0
+    a = randrange(0, 1000)
     b = 100
     fox = Foxy(a, b)
     fox.fox.draw(win)
 
     #eagle
-    c = 0
-    d = 199.605
+    c = randrange(0, 1000)
+    d = 400 * sin((1/90)* c + 18) + 500
     eagle = Eagle(c, d)
     eagle.eagle.draw(win)
     
     while win.checkKey() != 'q': 
-        if bun.bun.getCenter().getX() >= xp - 10 and bun.bun.getCenter().getX() <= xp + 10:
+        if bun.bun.getCenter().getX() >= xp - 5 and bun.bun.getCenter().getX() <= xp + 5:
             grass.grass.undraw()
             #pause and make a new one
-            grass.grass.draw(win)
+            #grass.grass.draw(win)
+        if fox.fox.getCenter().getX() >= x - 5 and fox.fox.getCenter().getX() <= x + 5:
+            bun.bun.undraw()
+        if eagle.eagle.getCenter().getX() >= a - 5 and eagle.eagle.getCenter().getX() <= a + 5:
+            fox.fox.undraw()
         
         x += 3
         dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
