@@ -41,7 +41,7 @@ def main():
         db = 0
         lily.move(a,db)
         c += 3
-        dd = 4 * cos((c/900) + 18)/9
+        dd = (140 * cos((c/90) + 18))/9
         joe.move(5, dd)
 
     while win.checkKey() != 'q':
