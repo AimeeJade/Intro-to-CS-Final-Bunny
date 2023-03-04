@@ -52,6 +52,8 @@ def main():
         
         time.sleep(0.01)
         #bunny movement
+        #still does the thing where it goes upside down, looks like animals dissapear randomly because you can't see the eagle, but the x coordinates overlap (off grid, I think)
+        #error with dividing by 0?
         if x > 1000: #checking to change direction if the circle is out of bounds on either end
             x -= 20
             bun.bun.move(-20,dy)
