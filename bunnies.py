@@ -14,9 +14,9 @@ def main():
     grass.grass.draw(win)
     
     #bunny -- all starting at x = 0 for now
-    x = randrange(0, 1000)
-    y = 10 * abs(40 * sin((3 * pi/1000) * x))
-    bun = Bunny(x, y)
+    bunnyxposition = [0, 1000/3, 2000/3, 1000]
+    x = choice(bunnyxposition)
+    bun = Bunny(x, 0)
     bun.bun.draw(win)
 
     #fox
@@ -40,6 +40,7 @@ def main():
         dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
         dd = (140 * cos((c/90) + 18))/9
         dy_opposite = (18 * pi * cos((3*pi*(-x))/1000) *sin((3*pi*(-x))/1000))/(5 * abs(sin((3*pi*(-x))/1000)))
+        dd_opposite = (140 * cos(((-c)/90) + 18))/9
         if bun.bun.getCenter().getX() >= xp - 5 and bun.bun.getCenter().getX() <= xp + 5:
             grass.grass.undraw()
             #use wait function until a certain condition happens?
@@ -86,18 +87,18 @@ def main():
         #eagle movement
         if c > 1000:
             c -= 20
-            eagle.eagle.move(c,dd)
+            eagle.eagle.move(-20,dd)
             right3 = False
-        elif a < 0:
-            a += 20
+        elif c < 0:
+            c += 20
             eagle.eagle.move(20,dd)
             right3 = True
         if right3:
-            a += 5
+            c += 5
             eagle.eagle.move(5,dd)
         else:
-            a -= 5
-            eagle.eagle.move(-5,dd)
+            c -= 5
+            eagle.eagle.move(-5,dd_opposite)
 
 
 
@@ -213,8 +214,6 @@ from graphics import *
 from math import *
 from random import *
 import time
-
-
 def main():
     win = GraphWin("Bunny", 1000, 1000)
     win.setBackground("light cyan")
@@ -231,13 +230,11 @@ def main():
     y = 10 * abs(40 * sin((3 * pi/1000) * x))
     bun = Bunny(x, y)
     bun.bun.draw(win)
-
     #fox
     a = randrange(0, 1000)
     b = 100
     fox = Foxy(a, b)
     fox.fox.draw(win)
-
     #eagle
     c = randrange(0, 1000)
     d = 400 * sin((1/90)* c + 18) + 505
@@ -265,14 +262,12 @@ def main():
         c += 3
         dd = (140 * cos((c/90) + 18))/9
         eagle.eagle.move(5, dd)
-
 #how to make grass and bunny simultanous
 class Ground:
     def __init__(self):
         self.ground = Line(Point(0, 10), Point(1000, 10))
         self.ground.setOutline("lightgreen")
         self.ground.setWidth(20)
-
 class Grass:
    def __init__(self, xp):
        self.xp = xp
@@ -280,7 +275,6 @@ class Grass:
        self.grass = Circle(Point(xp, self.y), 50)
        self.grass.setFill("lightgreen")
     
-
 class Bunny:
    def __init__(self, x, y):
        #x = randrange(0, 1000)
@@ -289,7 +283,6 @@ class Bunny:
        self.y = y
        self.bun = Circle(Point(self.x, self.y), 50)
        self.bun.setFill("pink")
-
    def bun_move_right(self, dy):
        dx = 3
        self.dx = dx
@@ -297,7 +290,6 @@ class Bunny:
        self.dy = dy
        self.dy = (18 * pi * cos((3* pi * self.dx)/1000) * sin((3 * pi * self.dx)/1000))/(5 * abs(sin((3 * pi * self.dx)/1000)))
        self.bun.move(self.dx, self.dy)
-
 class Foxy:
    def __init__(self, a, b):
        #x = randrange(0, 500)
@@ -306,7 +298,6 @@ class Foxy:
        self.b = b
        self.fox = Circle(Point(self.a, self.b), 50)
        self.fox.setFill("coral")
-
 class Eagle:
    def __init__(self, c, d):
        #x = randrange(0, 1000)
@@ -315,38 +306,29 @@ class Eagle:
        self.d = d
        self.eagle = Circle(Point(self.c, self.d), 50)
        self.eagle.setFill("peru")
-
-
 main()
-
 IDEAS FOR HOW TO KEEP IT IN THE WINDOW
-
 from graphics import *
 from math import *
 from random import *
 import time
-
 #fyuck
 win = GraphWin("Bunny", 1000, 1000)
 win.setBackground("light cyan")
 win.setCoords(0, 0, 1000, 1000)
-
 #external coordinate initialization
 x = 900
 y = 500
 x2 = 900
 y2 = 800
-
 #circle initialization
 circle = Circle(Point(x,y), 20)
 circle2 = Circle(Point(x2, y2), 30)
 circle.draw(win)
 circle2.draw(win)
-
 #direction initialization
 right = True
 right2 = True
-
 #main while loop
 while win.checkKey() != 'q': 
 #circle 1 movement
@@ -365,7 +347,6 @@ while win.checkKey() != 'q':
     else:
         x -= 5
         circle.move(-5,0)
-
 #circle 2 movement
     if x2 > 1000:
         x2 -= 20
@@ -381,5 +362,4 @@ while win.checkKey() != 'q':
     else:
         x2 -= 5
         circle2.move(-10,0)
-
 '''
