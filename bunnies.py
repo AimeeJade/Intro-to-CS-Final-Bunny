@@ -39,7 +39,7 @@ def main():
     while win.checkKey() != 'q': 
         dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
         dd = (140 * cos((c/90) + 18))/9
-        #dy_opposite = 
+        dy_opposite = (18 * pi * cos((3*pi*(-x))/1000) *sin((3*pi*(-x))/1000))/(5 * abs(sin((3*pi*(-x))/1000)))
         if bun.bun.getCenter().getX() >= xp - 5 and bun.bun.getCenter().getX() <= xp + 5:
             grass.grass.undraw()
             #use wait function until a certain condition happens?
@@ -52,8 +52,6 @@ def main():
         
         time.sleep(0.01)
         #bunny movement
-        #still does the thing where it goes upside down, looks like animals dissapear randomly because you can't see the eagle, but the x coordinates overlap (off grid, I think)
-        #error with dividing by 0?
         if x > 1000: #checking to change direction if the circle is out of bounds on either end
             x -= 20
             bun.bun.move(-20,dy)
@@ -67,7 +65,7 @@ def main():
             bun.bun.move(5,dy)
         else:
             x -= 5
-            bun.bun.move(-5,dy)
+            bun.bun.move(-5,dy_opposite)
 
         #fox movement
         if a > 1000:
