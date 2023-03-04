@@ -5,7 +5,7 @@ import time
 
 
 def main():
-    win = GraphWin("Bunny", 1000, 1000)
+    win = GraphWin("Bunny", 100, 100)
     win.setBackground("light cyan")
     win.setCoords(0, 0, 1000, 1000)
     xposition = [0, 1000/3, 2000/3, 1000]
@@ -30,10 +30,19 @@ def main():
     d = 400 * sin((1/90)* c + 18) + 500
     eagle = Eagle(c, d)
     eagle.eagle.draw(win)
+
+    #direction initialization
+    right = True
+    right2 = True
+    right3 = True
     
     while win.checkKey() != 'q': 
+        dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
+        dd = (140 * cos((c/90) + 18))/9
+        #dy_opposite = 
         if bun.bun.getCenter().getX() >= xp - 5 and bun.bun.getCenter().getX() <= xp + 5:
             grass.grass.undraw()
+            #use wait function until a certain condition happens?
             #pause and make a new one
             #grass.grass.draw(win)
         if fox.fox.getCenter().getX() >= x - 5 and fox.fox.getCenter().getX() <= x + 5:
@@ -41,16 +50,56 @@ def main():
         if eagle.eagle.getCenter().getX() >= a - 5 and eagle.eagle.getCenter().getX() <= a + 5:
             fox.fox.undraw()
         
-        x += 3
-        dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
-        bun.bun.move(3, dy)
-        #bun.bun_move_right() -- tyring to figure this out
-        a += 0.5
-        db = 0
-        fox.fox.move(a,db)
-        c += 3
-        dd = (140 * cos((c/90) + 18))/9
-        eagle.eagle.move(5, dd)
+        time.sleep(0.01)
+        #bunny movement
+        if x > 1000: #checking to change direction if the circle is out of bounds on either end
+            x -= 20
+            bun.bun.move(-20,dy)
+            right = False
+        elif x < 0:
+            x += 20
+            bun.bun.move(20,dy)
+            right = True
+        if right: #movement based on the direction given by "right" variable
+            x += 5
+            bun.bun.move(5,dy)
+        else:
+            x -= 5
+            bun.bun.move(-5,dy)
+
+        #fox movement
+        if a > 1000:
+            a -= 20
+            fox.fox.move(-20,0)
+            right2 = False
+        elif a < 0:
+            a += 20
+            fox.fox.move(20,0)
+            right2 = True
+        if right2:
+            a += 5
+            fox.fox.move(5,0)
+        else:
+            a -= 5
+            fox.fox.move(-5,0)
+
+        #eagle movement
+        if c > 1000:
+            c -= 20
+            eagle.eagle.move(c,dd)
+            right3 = False
+        elif a < 0:
+            a += 20
+            eagle.eagle.move(20,dd)
+            right3 = True
+        if right3:
+            a += 5
+            eagle.eagle.move(5,dd)
+        else:
+            a -= 5
+            eagle.eagle.move(-5,dd)
+
+
 
 #how to make grass and bunny simultanous
 class Grass:
@@ -59,7 +108,6 @@ class Grass:
        self.y = 0
        self.grass = Circle(Point(xp, self.y), 50)
        self.grass.setFill("lightgreen")
-    
 
 class Bunny:
    def __init__(self, x, y):
