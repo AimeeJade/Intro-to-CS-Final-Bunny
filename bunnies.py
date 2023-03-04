@@ -2,29 +2,6 @@ from graphics import *
 from math import *
 from random import *
 import time
-from tkinter import *
-from PIL import Image
-import numpy as np
-
-im = Image.open('TBunny.png')
-immat = im.load()
-(X, Y) = im.size
-m = np.zeros((X, Y))
-
-for x in range(X):
-    for y in range(Y):
-        m[x, y] = immat[(x, y)] != (255, 255, 255)
-m = m / np.sum(np.sum(m))
-
-# marginal distributions
-dx = np.sum(m, 1)
-dy = np.sum(m, 0)
-
-# expected values
-cx = np.sum(dx * np.arange(X))
-cy = np.sum(dy * np.arange(Y))
-
-print(cx, cy)
 
 
 def main():
@@ -54,7 +31,7 @@ def main():
     fox.fox.draw(win)
    
     #eagle
-    eagle_x = randrange(0, 1000)
+    eagle_x = randrange(0, 100)
     eagle_y = 400 * sin((1/90)* eagle_x + 18) + 350
     eagle = Eagle(eagle_x, eagle_y)
     eagle.eagle.draw(win)
@@ -75,10 +52,10 @@ def main():
             grass = Grass(grass_x)
             grass.grass.draw(win)
 
-        if (fox.fox.getCenter().getY() >= bun_y - 50 and fox.fox.getCenter().getY() <= bun_y + 50) and (fox.fox.getCenter().getX() >= bun_x - 50 and fox.fox.getCenter().getX() <= bun_x + 50):
+        if (fox.fox.getCenter().getY() >= bun.bun.getCenter().getY() - 60 and fox.fox.getCenter().getY() <= bun.bun.getCenter().getY() + 60) and (fox.fox.getCenter().getX() >= bun.bun.getCenter().getX() - 60 and fox.fox.getCenter().getX() <= bun.bun.getCenter().getX() + 60):
             bun.bun.undraw()
 
-        if (eagle.eagle.getCenter().getY() >= fox_y - 10 and eagle.eagle.getCenter().getY() <= fox_y + 10) and (eagle.eagle.getCenter().getX() >= fox_x - 10 and eagle.eagle.getCenter().getX() <= fox_x + 10):
+        if (eagle.eagle.getCenter().getY() >= fox.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= fox.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= fox.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= fox.fox.getCenter().getX() + 60):
             fox.fox.undraw()
 
     
@@ -101,20 +78,20 @@ def main():
             bun.bun.move(-3,-bun_slope)
             
         #fox movement
-        if fox_x > 1000:
+        if fox_x > 980:
             fox_x -= 10
-            fox.fox.move(-10,0)
+            fox.fox.move(-15,0)
             right2 = False
-        elif fox_x < 0:
+        elif fox_x < 20:
             fox_x += 10
-            fox.fox.move(10,0)
+            fox.fox.move(15,0)
             right2 = True
         if right2:
             fox_x += 10
-            fox.fox.move(10,0)
+            fox.fox.move(15,0)
         else:
             fox_x -= 10
-            fox.fox.move(-10,0)
+            fox.fox.move(-15,0)
 
         #eagle movement
         if eagle_x > 1000:
