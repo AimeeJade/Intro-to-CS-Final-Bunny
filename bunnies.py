@@ -207,7 +207,7 @@ def main():
         if eagle.eagle.getCenter().getX() >= a - 5 and eagle.eagle.getCenter().getX() <= a + 5:
             fox.fox.undraw()
         
-        x += 3
+        bun.bun.getX() += 3
         dy = (18 * pi * cos((3*pi*x)/1000) *sin((3*pi*x)/1000))/(5 * abs(sin((3*pi*x)/1000)))
         bun.bun.move(3, dy)
         #bun.bun_move_right() -- tyring to figure this out
@@ -270,4 +270,68 @@ class Eagle:
 
 
 main()
+
+IDEAS FOR HOW TO KEEP IT IN THE WINDOW
+
+from graphics import *
+from math import *
+from random import *
+import time
+
+#fyuck
+win = GraphWin("Bunny", 1000, 1000)
+win.setBackground("light cyan")
+win.setCoords(0, 0, 1000, 1000)
+
+#external coordinate initialization
+x = 900
+y = 500
+x2 = 900
+y2 = 800
+
+#circle initialization
+circle = Circle(Point(x,y), 20)
+circle2 = Circle(Point(x2, y2), 30)
+circle.draw(win)
+circle2.draw(win)
+
+#direction initialization
+right = True
+right2 = True
+
+#main while loop
+while win.checkKey() != 'q': 
+#circle 1 movement
+    time.sleep(0.01)
+    if x > 1000: #checking to change direction if the circle is out of bounds on either end
+        x -= 20
+        circle.move(-20,0)
+        right = False
+    elif x < 0:
+        x += 20
+        circle.move(20,0)
+        right = True
+    if right: #movement based on the direction given by "right" variable
+        x += 5
+        circle.move(5,0)
+    else:
+        x -= 5
+        circle.move(-5,0)
+
+#circle 2 movement
+    if x2 > 1000:
+        x2 -= 20
+        circle2.move(-20,0)
+        right2 = False
+    elif x2 < 0:
+        x2 += 20
+        circle2.move(20,0)
+        right2 = True
+    if right2:
+        x2 += 5
+        circle2.move(10,0)
+    else:
+        x2 -= 5
+        circle2.move(-10,0)
+
 '''
