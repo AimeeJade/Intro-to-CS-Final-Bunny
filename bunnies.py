@@ -16,18 +16,9 @@ def main():
     grass_x = choice(grass_choice)
     grass = Grass(grass_x)
     grass.grass.draw(win)
-    message = Text(Point(800,880), '''Instructions:
-Press "b" to add a bunny
-Press "f" to add a fox
-Press "e" to add an eagle
-Press "g" to add more grass
-Click on an object to delete it
-Press "q" to exit the simulation''')
-    message.setFace("courier")
-    message.setTextColor("black")
-    message.setSize(18)
-    message.setStyle("normal")
-    message.draw(win)
+    textbox = Textbox()
+    textbox.box.draw(win)
+    textbox.message.draw(win)
 
 
 #--------------------------Creating Animal Instances at Random Points----------------------------
@@ -83,7 +74,6 @@ Press "q" to exit the simulation''')
                 eagle.eagle.undraw()
             if (point.getY() >= grass.grass.getCenter().getY() - 60 and point.getY() <= grass.grass.getCenter().getY() + 60) and (point.getX() >= grass.grass.getCenter().getX() - 60 and point.getX() <= grass.grass.getCenter().getX() + 60):
                 grass.grass.undraw()
-        
 # point stuff 
 #why is the bunny not apearing? what is it not cloning???????
         if clickPoint == 'b':
@@ -91,15 +81,18 @@ Press "q" to exit the simulation''')
             bun_y2 = 10 * abs(40 * sin((3 * pi/1000) * bun_x2)) + 40
             bun2 = Bunny(bun_x2, bun_y2, True)
             bun2.bun.draw(win)
-            bun2.bun_move(bun_slope)
+            #return bun2
             
     #---------------------------------------
         time.sleep(0.01)
 
     #Animal movements 
         bun.bun_move(bun_slope)
+        #if bun2 == True:
+            #bun2.bun_move(win)
         fox.fox_move(fox_slope)
         eagle.eagle_move(eagle_slope)
+
         clickPoint = win.checkKey()
 #--------------------------------------------- classes ------------------------------------------------
 class Ground:
@@ -108,12 +101,27 @@ class Ground:
         self.ground.setOutline("lightgreen")
         self.ground.setWidth(60)
 
+class Textbox:
+    def __init__(self):
+       self.box = Rectangle(Point(670, 770), Point(930, 970))
+       self.message = Text(Point(800,880), '''Instructions:
+Press "b" to add a bunny
+Press "f" to add a fox
+Press "e" to add an eagle
+Press "g" to add more grass
+Click on an object to delete it
+Press "q" to exit the simulation''')
+       self.message.setFace("times roman")
+       self.message.setTextColor("dark slate blue")
+       self.message.setSize(18)
+       self.message.setStyle("normal")
+
 class Grass:
    def __init__(self, grass_x):
        self.grass_x = grass_x
        self.y = 0
        self.grass = Circle(Point(grass_x, self.y), 50)
-       self.grass.setFill("lightgreen")
+       self.grass.setFill("forest green")
     
 class Bunny:
    def __init__(self, bun_x, bun_y, right):
