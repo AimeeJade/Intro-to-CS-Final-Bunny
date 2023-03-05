@@ -10,12 +10,18 @@ def main():
     win = GraphWin("Bunny", 1000, 1000)
     win.setBackground("light cyan")
     win.setCoords(0, 0, 1000, 1000)
+    
+    #creating a green ground
     ground = Ground()
     ground.ground.draw(win)
+
+    #creating the grass object
     grass_choice = [0, 1000/3, 2000/3, 1000]
     grass_x = choice(grass_choice)
     grass = Grass(grass_x)
     grass.grass.draw(win)
+
+    #creating the textbook with instructions
     textbox = Textbox()
     textbox.box.draw(win)
     textbox.message.draw(win)
@@ -41,7 +47,12 @@ def main():
     eagle.eagle.draw(win)
 
 #--------------------------Main While Loop for Interactions and Movements---------------------------
+    bunny_list = [bun]
+    fox_list = [fox]
+    eagle_list = [eagle]
+
     clickPoint = win.checkKey()
+    
     while clickPoint != 'q': 
         if clickPoint != "":
             print(clickPoint)
@@ -50,48 +61,73 @@ def main():
         eagle_slope = (150 * cos((eagle_x/90) + 18))/9
        
         
-    #-------- eating interations ----------
-        if bun.bun.getCenter().getX() >= grass_x - 5 and bun.bun.getCenter().getX() <= grass_x + 5:
-            grass.grass.undraw()
-            grass_x = choice(grass_choice)
-            grass = Grass(grass_x)
-            grass.grass.draw(win)
+    #--------------------- eating interations ------------------------
+        for i in bunny_list:
+            if i.bun.getCenter().getX() >= grass_x - 5 and i.bun.getCenter().getX() <= grass_x + 5:
+                grass.grass.undraw()
+                grass_x = choice(grass_choice)
+                grass = Grass(grass_x)
+                grass.grass.draw(win)
 
-        if (fox.fox.getCenter().getY() >= bun.bun.getCenter().getY() - 60 and fox.fox.getCenter().getY() <= bun.bun.getCenter().getY() + 60) and (fox.fox.getCenter().getX() >= bun.bun.getCenter().getX() - 60 and fox.fox.getCenter().getX() <= bun.bun.getCenter().getX() + 60):
-            bun.bun.undraw()
-            #bun2.bun.draw(win)
+            if (fox.fox.getCenter().getY() >= i.bun.getCenter().getY() - 60 and fox.fox.getCenter().getY() <= i.bun.getCenter().getY() + 60) and (fox.fox.getCenter().getX() >= i.bun.getCenter().getX() - 60 and fox.fox.getCenter().getX() <= i.bun.getCenter().getX() + 60):
+                i.bun.undraw()
 
-        if (eagle.eagle.getCenter().getY() >= fox.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= fox.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= fox.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= fox.fox.getCenter().getX() + 60):
-            fox.fox.undraw()
+        for i in fox_list:
+            if (eagle.eagle.getCenter().getY() >= i.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= i.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= i.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= i.fox.getCenter().getX() + 60):
+                i.fox.undraw()
         
+    #--------when the mouse click falls into a certain range around the center of the animal object, the object is undrawn--------
         point = win.checkMouse()
+
         if point != None: 
-            if (point.getY() >= bun.bun.getCenter().getY() - 60 and point.getY() <= bun.bun.getCenter().getY() + 60) and (point.getX() >= bun.bun.getCenter().getX() - 60 and point.getX() <= bun.bun.getCenter().getX() + 60):
-                bun.bun.undraw()
-            if (point.getY() >= fox.fox.getCenter().getY() - 60 and point.getY() <= fox.fox.getCenter().getY() + 60) and (point.getX() >= fox.fox.getCenter().getX() - 60 and point.getX() <= fox.fox.getCenter().getX() + 60):
-                fox.fox.undraw()
-            if (point.getY() >= eagle.eagle.getCenter().getY() - 60 and point.getY() <= eagle.eagle.getCenter().getY() + 60) and (point.getX() >= eagle.eagle.getCenter().getX() - 60 and point.getX() <= eagle.eagle.getCenter().getX() + 60):
-                eagle.eagle.undraw()
+            for i in bunny_list:
+                if (point.getY() >= i.bun.getCenter().getY() - 60 and point.getY() <= i.bun.getCenter().getY() + 60) and (point.getX() >= i.bun.getCenter().getX() - 60 and point.getX() <= i.bun.getCenter().getX() + 60):
+                    i.bun.undraw()
+
+            for i in fox_list:
+                if (point.getY() >= i.fox.getCenter().getY() - 60 and point.getY() <= i.fox.getCenter().getY() + 60) and (point.getX() >= i.fox.getCenter().getX() - 60 and point.getX() <= i.fox.getCenter().getX() + 60):
+                    i.fox.undraw()
+
+            for i in eagle_list:
+                if (point.getY() >= i.eagle.getCenter().getY() - 60 and point.getY() <= i.eagle.getCenter().getY() + 60) and (point.getX() >= i.eagle.getCenter().getX() - 60 and point.getX() <= i.eagle.getCenter().getX() + 60):
+                    i.eagle.undraw()
+
             if (point.getY() >= grass.grass.getCenter().getY() - 60 and point.getY() <= grass.grass.getCenter().getY() + 60) and (point.getX() >= grass.grass.getCenter().getX() - 60 and point.getX() <= grass.grass.getCenter().getX() + 60):
                 grass.grass.undraw()
-# point stuff 
-#why is the bunny not apearing? what is it not cloning???????
+
+        #how to make the bunny move?
         if clickPoint == 'b':
-            bun_x2 = randrange(0, 1000)
-            bun_y2 = 10 * abs(40 * sin((3 * pi/1000) * bun_x2)) + 40
-            bun2 = Bunny(bun_x2, bun_y2, True)
-            bun2.bun.draw(win)
-            #return bun2
-            
-    #---------------------------------------
+            bun_x = randrange(0, 1000)
+            bun_y = 10 * abs(40 * sin((3 * pi/1000) * bun_x)) + 40
+            bun = Bunny(bun_x, bun_y, True)
+            bun.bun.draw(win)
+            bunny_list.append(bun)
+
+        if clickPoint == 'f':
+            fox_x = randrange(0, 1000)
+            fox_y = 100
+            fox = Fox(fox_x, fox_y, True)
+            fox.fox.draw(win)
+            fox_list.append(fox)
+
+        if clickPoint == 'e':
+            eagle_x = randrange(0, 100)
+            eagle_y = 10 * abs(40 * sin((3 * pi/1000) * eagle_x)) + 40
+            eagle = Eagle(eagle_x, eagle_y, True)
+            eagle.eagle.draw(win)
+            eagle_list.append(eagle)
+
         time.sleep(0.01)
 
-    #Animal movements 
-        bun.bun_move(bun_slope)
-        #if bun2 == True:
-            #bun2.bun_move(win)
-        fox.fox_move(fox_slope)
-        eagle.eagle_move(eagle_slope)
+    #-------- Animal movements --------
+        for i in bunny_list:
+            i.bun_move(bun_slope)
+
+        for i in fox_list:
+            i.fox_move(fox_slope)
+
+        for i in eagle_list:
+            i.eagle_move(eagle_slope)
 
         clickPoint = win.checkKey()
 #--------------------------------------------- classes ------------------------------------------------
