@@ -16,34 +16,48 @@ def main():
     grass_x = choice(grass_choice)
     grass = Grass(grass_x)
     grass.grass.draw(win)
+    message = Text(Point(800,880), '''Instructions:
+Press "b" to add a bunny
+Press "f" to add a fox
+Press "e" to add an eagle
+Press "g" to add more grass
+Click on an object to delete it
+Press "q" to exit the simulation''')
+    message.setFace("courier")
+    message.setTextColor("black")
+    message.setSize(18)
+    message.setStyle("normal")
+    message.draw(win)
+
 
 #--------------------------Creating Animal Instances at Random Points----------------------------
     #bunny 
     bun_x = randrange(0, 1000)
     bun_y = 10 * abs(40 * sin((3 * pi/1000) * bun_x)) + 40
     bun = Bunny(bun_x, bun_y, True)
-    #bun2 = bun.bun.clone()
     bun.bun.draw(win)
 
-    
     #fox
     fox_x = randrange(0, 1000)
     fox_y = 100
-    fox = Foxy(fox_x, fox_y, True)
+    fox = Fox(fox_x, fox_y, True)
     fox.fox.draw(win)
    
     #eagle
-    eagle_x = randrange(0, 100)
+    eagle_x = randrange(0, 50)
     eagle_y = 400 * sin((1/90)* eagle_x + 18) + 350
     eagle = Eagle(eagle_x, eagle_y, True)
     eagle.eagle.draw(win)
 
 #--------------------------Main While Loop for Interactions and Movements---------------------------
-    
-    while win.checkKey() != 'q': 
+    clickPoint = win.checkKey()
+    while clickPoint != 'q': 
+        if clickPoint != "":
+            print(clickPoint)
         bun_slope = (18 * pi * cos((3 * pi * bun_x) / 1000) * sin((3 * pi * bun_x) / 1000))/(5 * abs(sin((3 * pi * bun_x) / 1000)))
         fox_slope = 0
         eagle_slope = (150 * cos((eagle_x/90) + 18))/9
+       
         
     #-------- eating interations ----------
         if bun.bun.getCenter().getX() >= grass_x - 5 and bun.bun.getCenter().getX() <= grass_x + 5:
@@ -58,6 +72,16 @@ def main():
 
         if (eagle.eagle.getCenter().getY() >= fox.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= fox.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= fox.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= fox.fox.getCenter().getX() + 60):
             fox.fox.undraw()
+        
+# point stuff 
+#why is the bunny not apearing? what is it not cloning???????
+        if clickPoint == 'b':
+            bun_x2 = randrange(0, 1000)
+            bun_y2 = 10 * abs(40 * sin((3 * pi/1000) * bun_x2)) + 40
+            bun2 = Bunny(bun_x2, bun_y2, True)
+            bun2.bun.draw(win)
+            bun2.bun_move(bun_slope)
+            
     #---------------------------------------
         time.sleep(0.01)
 
@@ -65,7 +89,7 @@ def main():
         bun.bun_move(bun_slope)
         fox.fox_move(fox_slope)
         eagle.eagle_move(eagle_slope)
-    
+        clickPoint = win.checkKey()
 #--------------------------------------------- classes ------------------------------------------------
 class Ground:
     def __init__(self):
@@ -114,7 +138,7 @@ class Bunny:
             self.bun.move(-3,-self.bun_slope)
 
 
-class Foxy:
+class Fox:
    def __init__(self, fox_x, fox_y, right2):
        self.right2 = right2
        self.x = fox_x
