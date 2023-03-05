@@ -28,25 +28,26 @@ def main():
 
 
 #--------------------------Creating Animal Instances at Random Points----------------------------
-    #bunny 
+    #bunny instance
     bun_x = randrange(0, 1000)
     bun_y = 10 * abs(40 * sin((3 * pi/1000) * bun_x)) + 40
     bun = Bunny(bun_x, bun_y, True)
     bun.bun.draw(win)
 
-    #fox
+    #fox instance
     fox_x = randrange(0, 1000)
     fox_y = 100
     fox = Fox(fox_x, fox_y, True)
     fox.fox.draw(win)
    
-    #eagle
+    #eagle instance
     eagle_x = randrange(0, 50)
     eagle_y = 400 * sin((1/90)* eagle_x + 18) + 350
     eagle = Eagle(eagle_x, eagle_y, True)
     eagle.eagle.draw(win)
 
 #--------------------------Main While Loop for Interactions and Movements---------------------------
+    #creating object lists
     bunny_list = [bun]
     fox_list = [fox]
     eagle_list = [eagle]
@@ -57,23 +58,29 @@ def main():
     while clickPoint != 'q': 
         if clickPoint != "":
             print(clickPoint)
+
+        #object slopes for movement
         bun_slope = (18 * pi * cos((3 * pi * bun_x) / 1000) * sin((3 * pi * bun_x) / 1000))/(5 * abs(sin((3 * pi * bun_x) / 1000)))
         fox_slope = 0
         eagle_slope = (150 * cos((eagle_x/90) + 18))/9
        
         
     #--------------------- eating interations ------------------------
+        # for each bunny in the bunny list, if the center of the bunny is in the range of the center of the grass, the bunny eats the grass
         for i in bunny_list:
             if i.bun.getCenter().getX() >= grass_x - 5 and i.bun.getCenter().getX() <= grass_x + 5:
                 
                 grass.grass.undraw()
                 grass_x = choice(grass_choice)
                 grass = Grass(grass_x)
+                #grass ia drawn again, elsewhere (and it could also appear in the same spot)
                 grass.grass.draw(win)    
 
-            if (fox.fox.getCenter().getY() >= i.bun.getCenter().getY() - 60 and fox.fox.getCenter().getY() <= i.bun.getCenter().getY() + 60) and (fox.fox.getCenter().getX() >= i.bun.getCenter().getX() - 60 and fox.fox.getCenter().getX() <= i.bun.getCenter().getX() + 60):
-                i.bun.undraw()
-                del bunny_list[0]
+            #when fox is in range of a bunny, it eats the bunny
+            for f in fox_list:
+                if (f.fox.getCenter().getY() >= i.bun.getCenter().getY() - 60 and f.fox.getCenter().getY() <= i.bun.getCenter().getY() + 60) and (f.fox.getCenter().getX() >= i.bun.getCenter().getX() - 60 and f.fox.getCenter().getX() <= i.bun.getCenter().getX() + 60):
+                    i.bun.undraw()
+                    del bunny_list[0]
 
         for i in fox_list:
             if (eagle.eagle.getCenter().getY() >= i.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= i.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= i.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= i.fox.getCenter().getX() + 60):
