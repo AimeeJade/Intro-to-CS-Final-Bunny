@@ -22,7 +22,9 @@ def main():
     bun_x = randrange(0, 1000)
     bun_y = 10 * abs(40 * sin((3 * pi/1000) * bun_x)) + 40
     bun = Bunny(bun_x, bun_y, True)
+    #bun2 = bun.bun.clone()
     bun.bun.draw(win)
+
     
     #fox
     fox_x = randrange(0, 1000)
@@ -41,7 +43,7 @@ def main():
     while win.checkKey() != 'q': 
         bun_slope = (18 * pi * cos((3 * pi * bun_x) / 1000) * sin((3 * pi * bun_x) / 1000))/(5 * abs(sin((3 * pi * bun_x) / 1000)))
         fox_slope = 0
-        eagle_slope = (140 * cos((eagle_x/90) + 18))/9
+        eagle_slope = (150 * cos((eagle_x/90) + 18))/9
         
     #-------- eating interations ----------
         if bun.bun.getCenter().getX() >= grass_x - 5 and bun.bun.getCenter().getX() <= grass_x + 5:
@@ -52,6 +54,7 @@ def main():
 
         if (fox.fox.getCenter().getY() >= bun.bun.getCenter().getY() - 60 and fox.fox.getCenter().getY() <= bun.bun.getCenter().getY() + 60) and (fox.fox.getCenter().getX() >= bun.bun.getCenter().getX() - 60 and fox.fox.getCenter().getX() <= bun.bun.getCenter().getX() + 60):
             bun.bun.undraw()
+            #bun2.bun.draw(win)
 
         if (eagle.eagle.getCenter().getY() >= fox.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= fox.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= fox.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= fox.fox.getCenter().getX() + 60):
             fox.fox.undraw()
@@ -121,13 +124,13 @@ class Foxy:
 
    def fox_move(self, fox_slope):
        self.fox_slope = fox_slope
-       if self.x > 980:
+       if self.x > 1000:
             self.x -= 10
             self.fox_slope = 0
             self.fox.move(-15, self.fox_slope)
             self.right2 = False
             
-       elif self.x < 20:
+       elif self.x < 0:
             self.x += 10
             self.fox_slope = 0
             self.fox.move(15, self.fox_slope)
@@ -155,25 +158,25 @@ class Eagle:
        self.eagle_slope = eagle_slope
        if self.x > 1000:
             self.x -= 5
-            self.eagle_slope = (140 * cos((self.x/90) + 18))/9
-            self.eagle.move(-5,-eagle_slope)
+            self.eagle_slope = (150 * cos((self.x/90) + 18))/9
+            self.eagle.move(-5,-self.eagle_slope)
             self.right3 = False
 
        elif self.x < 0:
             self.x += 5
-            self.eagle_slope = (140 * cos((self.x/90) + 18))/9
-            self.eagle.move(5,eagle_slope)
+            self.eagle_slope = (150 * cos((self.x/90) + 18))/9
+            self.eagle.move(5,self.eagle_slope)
             self.right3 = True
 
        if self.right3:
             self.x += 5
-            self.eagle_slope = (140 * cos((self.x/90) + 18))/9
-            self.eagle.move(5,eagle_slope)
+            self.eagle_slope = (150 * cos((self.x/90) + 18))/9
+            self.eagle.move(5, self.eagle_slope)
 
        else:
             self.x -= 5
-            self.eagle_slope = (140 * cos((self.x/90) + 18))/9
-            self.eagle.move(-5,-eagle_slope)
+            self.eagle_slope = (150 * cos((self.x/90) + 18))/9
+            self.eagle.move(-5,-self.eagle_slope)
 
 
 main()
