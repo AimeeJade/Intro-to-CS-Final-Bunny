@@ -73,6 +73,17 @@ Press "q" to exit the simulation''')
         if (eagle.eagle.getCenter().getY() >= fox.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= fox.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= fox.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= fox.fox.getCenter().getX() + 60):
             fox.fox.undraw()
         
+        point = win.checkMouse()
+        if point != None: 
+            if (point.getY() >= bun.bun.getCenter().getY() - 60 and point.getY() <= bun.bun.getCenter().getY() + 60) and (point.getX() >= bun.bun.getCenter().getX() - 60 and point.getX() <= bun.bun.getCenter().getX() + 60):
+                bun.bun.undraw()
+            if (point.getY() >= fox.fox.getCenter().getY() - 60 and point.getY() <= fox.fox.getCenter().getY() + 60) and (point.getX() >= fox.fox.getCenter().getX() - 60 and point.getX() <= fox.fox.getCenter().getX() + 60):
+                fox.fox.undraw()
+            if (point.getY() >= eagle.eagle.getCenter().getY() - 60 and point.getY() <= eagle.eagle.getCenter().getY() + 60) and (point.getX() >= eagle.eagle.getCenter().getX() - 60 and point.getX() <= eagle.eagle.getCenter().getX() + 60):
+                eagle.eagle.undraw()
+            if (point.getY() >= grass.grass.getCenter().getY() - 60 and point.getY() <= grass.grass.getCenter().getY() + 60) and (point.getX() >= grass.grass.getCenter().getX() - 60 and point.getX() <= grass.grass.getCenter().getX() + 60):
+                grass.grass.undraw()
+        
 # point stuff 
 #why is the bunny not apearing? what is it not cloning???????
         if clickPoint == 'b':
