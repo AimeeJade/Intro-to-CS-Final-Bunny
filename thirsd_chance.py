@@ -71,17 +71,22 @@ def main():
     bunny_ear2_list = [bun.bunear2]
     bunny_tail_list = [bun.buntail]
 
-    #bunny shapes lists
+    #fox shapes lists
     fox_list = [fox]
+    fox_body_list = [fox.foxbody]
+    fox_ear1_list = [fox.foxear1]
+    fox_ear2_list = [fox.foxear2]
+    fox_tail_list = [fox.foxtail]
+    fox_nose_list = [fox.foxnose]
 
-    #bunny shapes lists
+    #eagle shapes lists
     eagle_list = [eagle]
     eagle_body_list = [eagle.eaglebody]
     eagle_wing1_list = [eagle.eaglewing1]
     eagle_wing2_list = [eagle.eaglewing2]
     eagle_beak_list = [eagle.eaglebeak]
 
-    #bunny shapes list
+    #grass shapes list
     grass_list = [grass]
 
     clickPoint = win.checkKey()
@@ -126,7 +131,17 @@ def main():
         for i in fox_list:
             if (eagle.eagle.getCenter().getY() >= i.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= i.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= i.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= i.fox.getCenter().getX() + 60):
                 i.fox.undraw()
+                i.foxbody.undraw()
+                i.foxear1.undraw()
+                i.foxear2.undraw()
+                i.foxtail.undraw()
+                i.foxnose.undraw()
                 del fox_list[0]
+                del fox_body_list[0]
+                del fox_ear1_list[0]
+                del fox_ear2_list[0]
+                del fox_tail_list[0]
+                del fox_nose_list[0]
         
     #--------when the mouse click falls into a certain range around the center of the animal object, the object is undrawn--------
         point = win.checkMouse()
@@ -148,7 +163,17 @@ def main():
             for i in fox_list:
                 if (point.getY() >= i.fox.getCenter().getY() - 60 and point.getY() <= i.fox.getCenter().getY() + 60) and (point.getX() >= i.fox.getCenter().getX() - 60 and point.getX() <= i.fox.getCenter().getX() + 60):
                     i.fox.undraw()
+                    i.foxbody.undraw()
+                    i.foxear1.undraw()
+                    i.foxear2.undraw()
+                    i.foxtail.undraw()
+                    i.foxnose.undraw()
                     del fox_list[0]
+                    del fox_body_list[0]
+                    del fox_ear1_list[0]
+                    del fox_ear2_list[0]
+                    del fox_tail_list[0]
+                    del fox_nose_list[0]
 
             for i in eagle_list:
                 if (point.getY() >= i.eagle.getCenter().getY() - 60 and point.getY() <= i.eagle.getCenter().getY() + 60) and (point.getX() >= i.eagle.getCenter().getX() - 60 and point.getX() <= i.eagle.getCenter().getX() + 60):
@@ -189,7 +214,17 @@ def main():
             fox_y = 100
             fox = Fox(fox_x, fox_y, True)
             fox.fox.draw(win)
+            fox.foxbody.draw(win)
+            fox.foxear1.draw(win)
+            fox.foxear2.draw(win)
+            fox.foxtail.draw(win)
+            fox.foxnose.draw(win)
             fox_list.append(fox)
+            fox_body_list.append(fox.foxbody)
+            fox_ear1_list.append(fox.foxear1)
+            fox_ear2_list.append(fox.foxear2)
+            fox_tail_list.append(fox.foxtail)
+            fox_nose_list.append(fox.foxnose)
 
         if clickPoint == 'e':
             eagle_x = randrange(0, 100)
