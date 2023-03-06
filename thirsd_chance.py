@@ -71,7 +71,7 @@ def main():
     bunny_ear2_list = [bun.bunear2]
     bunny_tail_list = [bun.buntail]
 
-    #fox shapes lists
+    #bunny shapes lists
     fox_list = [fox]
     fox_body_list = [fox.foxbody]
     fox_ear1_list = [fox.foxear1]
@@ -79,15 +79,16 @@ def main():
     fox_tail_list = [fox.foxtail]
     fox_nose_list = [fox.foxnose]
 
-    #eagle shapes lists
+    #bunny shapes lists
     eagle_list = [eagle]
     eagle_body_list = [eagle.eaglebody]
     eagle_wing1_list = [eagle.eaglewing1]
     eagle_wing2_list = [eagle.eaglewing2]
     eagle_beak_list = [eagle.eaglebeak]
 
-    #grass shapes list
+    #bunny shapes list
     grass_list = [grass]
+    grass_top_list = [grass.grasstop]
 
     clickPoint = win.checkKey()
 
@@ -111,7 +112,8 @@ def main():
                 grass_x = choice(grass_choice)
                 grass = Grass(grass_x)
                 #grass ia drawn again, elsewhere (and it could also appear in the same spot)
-                grass.grass.draw(win)    
+                grass.grass.draw(win)
+                grass.grasstop.draw(win) 
 
             #when fox is in range of a bunny, it eats the bunny
             for f in fox_list:
@@ -191,7 +193,9 @@ def main():
             for i in grass_list:
                 if (point.getY() >= i.grass.getCenter().getY() - 60 and point.getY() <= i.grass.getCenter().getY() + 60) and (point.getX() >= i.grass.getCenter().getX() - 60 and point.getX() <= i.grass.getCenter().getX() + 60):
                     i.grass.undraw()
+                    i.grasstop.undraw()
                     del grass_list[0]
+                    del grass_top_list[0]
 
         #how to make the bunny move?
         if clickPoint == 'b':
@@ -248,6 +252,7 @@ def main():
             grass.grass.draw(win)
             grass.grasstop.draw(win)
             grass_list.append(grass)
+            grass_top_list.append(grass.grasstop)
 
         time.sleep(0.01)
 
