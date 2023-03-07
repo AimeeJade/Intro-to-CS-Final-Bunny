@@ -101,27 +101,29 @@ def main():
     #--------------------- Eating interations  ------------------------
         # for each bunny in the bunny list, if the center of the bunny is in the range of the center of the grass, the bunny eats the grass
         for i in bunny_list:
-            if i.bun.getCenter().getX() >= grass_x - 5 and i.bun.getCenter().getX() <= grass_x + 5:
-                grass.grass.undraw()
-                grass.grasstop.undraw()
+            for g in grass_list:
+                if i.bun.getCenter().getX() >= g.grass.getCenter().getX() - 20 and i.bun.getCenter().getX() <= g.grass.getCenter().getX() + 20:
+                    g.grass.undraw()
+                    g.grasstop.undraw()
 
-                count = grass_list.index(i) # what would i be? what does it need to be?
-                del grass_list[count]
-                del grass_top_list[count]
-
-                grass_x = choice(grass_choice)
-                grass.grass.draw(win)
-                grass.grasstop.draw(win)
-                grass_list.append(grass)
-                grass_top_list.append(grass.grasstop)
-                # grass.grass.undraw()
-                # grass.grasstop.undraw()
-                # grass_x = choice(grass_choice)
-                # grass = Grass(grass_x)
-                
-                # #a new grass is drawn on x = 0, 333, 666, or 1000
-                # grass.grass.draw(win)
-                # grass.grasstop.draw(win) 
+                    # what would i be? what does it need to be?
+                    count = grass_list.index(g)
+                    del grass_list[count]
+                    del grass_top_list[count]
+                    grass_x = choice(grass_choice)
+                    grass = Grass(grass_x)
+                    grass.grass.draw(win)
+                    grass.grasstop.draw(win)
+                    grass_list.append(grass)
+                    grass_top_list.append(grass.grasstop)
+                    # grass.grass.undraw()
+                    # grass.grasstop.undraw()
+                    # grass_x = choice(grass_choice)
+                    # grass = Grass(grass_x)
+                    
+                    # #a new grass is drawn on x = 0, 333, 666, or 1000
+                    # grass.grass.draw(win)
+                    # grass.grasstop.draw(win) 
 
             #when fox is in range of the bunny's head, it eats the bunny
             for f in fox_list:
@@ -212,8 +214,9 @@ def main():
                 if (point.getY() >= i.grass.getCenter().getY() - 60 and point.getY() <= i.grass.getCenter().getY() + 60) and (point.getX() >= i.grass.getCenter().getX() - 60 and point.getX() <= i.grass.getCenter().getX() + 60):
                     i.grass.undraw()
                     i.grasstop.undraw()
-                    del grass_list[0]
-                    del grass_top_list[0]
+                    count2 = grass_list.index(i)
+                    del grass_list[count2]
+                    del grass_top_list[count2]
 
         #----------- Adding animals by clicking a key on the keyboard. 'b' for bunny, 'f' for fox, 'e' for eagle, and g'g' for grass ------------
         if clickPoint == 'b':
