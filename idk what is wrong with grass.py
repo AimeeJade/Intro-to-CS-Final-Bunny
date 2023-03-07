@@ -1,9 +1,11 @@
 from graphics import *
 from math import *
 from random import *
-import time
 
-#add description here of the main and figure out the courses folder thingy
+# DESCRIPTION:
+# For the  main function, each of the classes are called and drawn to the window. In the main while loop (when 'q' is not pressed), 
+# animals interact (depending on position in food chain) and eat each other when they are within a specified range of each other's heads. 
+# Animals and grass can be duplicated by pressing a specific key, and can also be deleted when their 'head' is clicked.
 
 def main():
     #creating a window and the background
@@ -28,7 +30,7 @@ def main():
     textbox.message.draw(win)
 
 #--------------------------Creating Animal Instances at Random Points----------------------------
-    #bunny instance
+    #bunny instance, drawing each of the bunny shapes
     bun_x = randrange(0, 1000)
     bun_y = 10 * abs(40 * sin((3 * pi/1000) * bun_x)) + 40
     bun = Bunny(bun_x, bun_y, True)
@@ -38,7 +40,7 @@ def main():
     bun.bunbody.draw(win)
     bun.bun.draw(win)
 
-    #fox instance
+    #fox instance, drawing each of the fox shapes
     fox_x = randrange(0, 1000)
     fox_y = 100
     fox = Fox(fox_x, fox_y, True)
@@ -49,7 +51,7 @@ def main():
     fox.foxtail.draw(win)
     fox.foxnose.draw(win)
    
-    #eagle instance
+    #eagle instance, drawing each of the eagle shapes
     eagle_x = randrange(0, 50)
     eagle_y = 400 * sin((1/90)* eagle_x + 18) + 350
     eagle = Eagle(eagle_x, eagle_y, True)
@@ -59,15 +61,15 @@ def main():
     eagle.eagle.draw(win)
     eagle.eaglebeak.draw(win)
     
-    #---------Creating object lists for when there are more than one of each animal----------
-    #bunny shapes lists
+    #---------Creating object lists for when there are more than one of each animal (being duplicated) ----------
+    #bunny shapes lists, current list for each animal is initialized with starting animal
     bunny_list = [bun]
     bunny_body_list = [bun.bunbody]
     bunny_ear1_list = [bun.bunear1]
     bunny_ear2_list = [bun.bunear2]
     bunny_tail_list = [bun.buntail]
 
-    #bunny shapes lists
+    #fox shapes lists
     fox_list = [fox]
     fox_body_list = [fox.foxbody]
     fox_ear1_list = [fox.foxear1]
@@ -75,55 +77,51 @@ def main():
     fox_tail_list = [fox.foxtail]
     fox_nose_list = [fox.foxnose]
 
-    #bunny shapes lists
+    #eagle shapes lists
     eagle_list = [eagle]
     eagle_body_list = [eagle.eaglebody]
     eagle_wing1_list = [eagle.eaglewing1]
     eagle_wing2_list = [eagle.eaglewing2]
     eagle_beak_list = [eagle.eaglebeak]
 
-    #bunny shapes list
+    #grass shapes list, initialized with starting grass shapes
     grass_list = [grass]
     grass_top_list = [grass.grasstop]
     
     #--------------------------Main While Loop for Interactions and Movements---------------------------
+    #setting clicking key equal to variable clickPoint
     clickPoint = win.checkKey()
 
+    #while key 'q' is not pressed, main while loop continues
     while clickPoint != 'q': 
         if clickPoint != "":
             print(clickPoint)
 
-        #object slopes for movement
+        #object slopes for movement method
         bun_slope = (18 * pi * cos((3 * pi * bun_x) / 1000) * sin((3 * pi * bun_x) / 1000))/(5 * abs(sin((3 * pi * bun_x) / 1000)))
         fox_slope = 0
         eagle_slope = (150 * cos((eagle_x/90) + 18))/9
         
     #--------------------- Eating interations  ------------------------
-        # for each bunny in the bunny list, if the center of the bunny is in the range of the center of the grass, the bunny eats the grass
+        #for each bunny in the bunny list, if the center of the bunny is in the range (+/-20) of the center of the grass, the bunny eats the grass causing grass to dissapear and reappear in new location
         for i in bunny_list:
             for g in grass_list:
                 if i.bun.getCenter().getX() >= g.grass.getCenter().getX() - 20 and i.bun.getCenter().getX() <= g.grass.getCenter().getX() + 20:
                     g.grass.undraw()
                     g.grasstop.undraw()
 
-                    # what would i be? what does it need to be?
+                    #delete the eaten grass from the grass list
                     count = grass_list.index(g)
                     del grass_list[count]
                     del grass_top_list[count]
+
+                    #create a new grass and append the new grass to the grass list
                     grass_x = choice(grass_choice)
                     grass = Grass(grass_x)
                     grass.grass.draw(win)
                     grass.grasstop.draw(win)
                     grass_list.append(grass)
                     grass_top_list.append(grass.grasstop)
-                    # grass.grass.undraw()
-                    # grass.grasstop.undraw()
-                    # grass_x = choice(grass_choice)
-                    # grass = Grass(grass_x)
-                    
-                    # #a new grass is drawn on x = 0, 333, 666, or 1000
-                    # grass.grass.draw(win)
-                    # grass.grasstop.draw(win) 
 
             #when fox is in range of the bunny's head, it eats the bunny
             for f in fox_list:
@@ -219,6 +217,7 @@ def main():
                     del grass_top_list[count2]
 
         #----------- Adding animals by clicking a key on the keyboard. 'b' for bunny, 'f' for fox, 'e' for eagle, and g'g' for grass ------------
+        #Bunny duplication if 'b' is clicked on the keyboard
         if clickPoint == 'b':
             bun_x = randrange(0, 1000)
             bun_y = 10 * abs(40 * sin((3 * pi/1000) * bun_x)) + 40
@@ -228,12 +227,14 @@ def main():
             bun.bunear2.draw(win)
             bun.buntail.draw(win)
             bun.bun.draw(win)
+            #appending new bunny to the bunny list
             bunny_list.append(bun)
             bunny_body_list.append(bun.bunbody)
             bunny_ear1_list.append(bun.bunear1)
             bunny_ear2_list.append(bun.bunear2)
             bunny_tail_list.append(bun.buntail)
 
+        #Fox duplication if 'f' is clicked on the keyboard
         if clickPoint == 'f':
             fox_x = randrange(0, 1000)
             fox_y = 100
@@ -244,6 +245,7 @@ def main():
             fox.foxear2.draw(win)
             fox.foxtail.draw(win)
             fox.foxnose.draw(win)
+            #appending new fox to the fox list
             fox_list.append(fox)
             fox_body_list.append(fox.foxbody)
             fox_ear1_list.append(fox.foxear1)
@@ -251,6 +253,7 @@ def main():
             fox_tail_list.append(fox.foxtail)
             fox_nose_list.append(fox.foxnose)
 
+        #Eagle duplication if 'e' is clicked on the keyboard
         if clickPoint == 'e':
             eagle_x = randrange(0, 100)
             eagle_y = 10 * abs(40 * sin((3 * pi/1000) * eagle_x)) + 40
@@ -260,18 +263,22 @@ def main():
             eagle.eaglewing2.draw(win)
             eagle.eagle.draw(win)
             eagle.eaglebeak.draw(win)
+            #appending new eagle to the eagle list
             eagle_list.append(eagle)
             eagle_body_list.append(eagle.eaglebody)
             eagle_wing1_list.append(eagle.eaglewing1)
             eagle_wing2_list.append(eagle.eaglewing2)
             eagle_beak_list.append(eagle.eaglebeak)
 
+
+        #Grass duplication if 'g' is clicked on the keyboard
         if clickPoint == 'g':
             grass_choice = [0, 1000/3, 2000/3, 1000]
             grass_x = choice(grass_choice)
             grass = Grass(grass_x)
             grass.grass.draw(win)
             grass.grasstop.draw(win)
+            #appending new grass to the grass list
             grass_list.append(grass)
             grass_top_list.append(grass.grasstop)
 
@@ -287,7 +294,8 @@ def main():
             i.eagle_move(eagle_slope)
 
         clickPoint = win.checkKey()
-#--------------------------------------------- classes ------------------------------------------------
+
+#--------------------------------------------- CLASSES ------------------------------------------------
 class Ground:
     def __init__(self):
         self.ground = Line(Point(0, 30), Point(1000, 30))
