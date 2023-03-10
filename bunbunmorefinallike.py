@@ -10,8 +10,8 @@ from random import *
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
 def main():
-    #creating a window and the background
-    win = GraphWin("Bunny", 100, 100, autoflush = False)
+    #creating a window and the background (can change window size to fit screen -- if 1000, 1000 is too big, we recommend 800, 800)
+    win = GraphWin("Bunny", 1000, 1000, autoflush = False)
     win.setBackground("light cyan")
     win.setCoords(0, 0, 1000, 1000)
     
