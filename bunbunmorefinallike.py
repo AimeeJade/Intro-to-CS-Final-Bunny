@@ -11,7 +11,7 @@ from random import *
 
 def main():
     #creating a window and the background
-    win = GraphWin("Bunny", 1000, 1000, autoflush = False)
+    win = GraphWin("Bunny", 100, 100, autoflush = False)
     win.setBackground("light cyan")
     win.setCoords(0, 0, 1000, 1000)
     
@@ -147,24 +147,25 @@ def main():
                     del bunny_ear2_list[count]
                     del bunny_tail_list[count]
         #when eagle is in range of fox's head, it eats the fox         
-        for i in fox_list:
-            if (eagle.eagle.getCenter().getY() >= i.fox.getCenter().getY() - 60 and eagle.eagle.getCenter().getY() <= i.fox.getCenter().getY() + 60) and (eagle.eagle.getCenter().getX() >= i.fox.getCenter().getX() - 60 and eagle.eagle.getCenter().getX() <= i.fox.getCenter().getX() + 60):
-                #undraw fox
-                i.fox.undraw()
-                i.foxbody.undraw()
-                i.foxear1.undraw()
-                i.foxear2.undraw()
-                i.foxtail.undraw()
-                i.foxnose.undraw()
+        for e in eagle_list:
+            for i in fox_list:
+                if (e.eagle.getCenter().getY() >= i.fox.getCenter().getY() - 60 and e.eagle.getCenter().getY() <= i.fox.getCenter().getY() + 60) and (e.eagle.getCenter().getX() >= i.fox.getCenter().getX() - 60 and e.eagle.getCenter().getX() <= i.fox.getCenter().getX() + 60):
+                    #undraw fox
+                    i.fox.undraw()
+                    i.foxbody.undraw()
+                    i.foxear1.undraw()
+                    i.foxear2.undraw()
+                    i.foxtail.undraw()
+                    i.foxnose.undraw()
 
-                #deleting the fox at index i
-                count = fox_list.index(i)
-                del fox_list[count]
-                del fox_body_list[count]
-                del fox_ear1_list[count]
-                del fox_ear2_list[count]
-                del fox_tail_list[count]
-                del fox_nose_list[count]
+                    #deleting the fox at index i
+                    count = fox_list.index(i)
+                    del fox_list[count]
+                    del fox_body_list[count]
+                    del fox_ear1_list[count]
+                    del fox_ear2_list[count]
+                    del fox_tail_list[count]
+                    del fox_nose_list[count]
         
     #-------- When the mouse click falls into a certain range in the animal's head, the object is undrawn --------
         #checking what point at which the mouse was clicked
