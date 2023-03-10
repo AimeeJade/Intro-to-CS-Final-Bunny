@@ -310,11 +310,14 @@ def main():
 # --------------------------------------------------------------------------
 #                               CLASSES  
 # --------------------------------------------------------------------------
+#create class Ground, and fill Line shape in with light green
+class Ground:
     def __init__(self):
         self.ground = Line(Point(0, 30), Point(1000, 30))
         self.ground.setOutline("lightgreen")
         self.ground.setWidth(60)
 
+#create class Textbox and input message and formatting
 class Textbox:
     def __init__(self):
        self.box = Rectangle(Point(670, 770), Point(930, 970))
@@ -330,15 +333,20 @@ Press "q" to exit the simulation''')
        self.message.setSize(18)
        self.message.setStyle("normal")
 
+#create class Grass at given random x coordinate (within 3 possible choices) and y coordinate set to 0
 class Grass:
    def __init__(self, grass_x):
        self.grass_x = grass_x
        self.y = 0
        self.grass = Circle(Point(grass_x, self.y), 50)
        self.grass.setFill("forest green")
+       #created grass top for shape, however kept circle since the movement of the polygon is based on the movement of
+       #the circle on the coordinate plane
        self.grasstop = Polygon(Point(self.grass_x, 90), Point(self.grass_x + 60, 0), Point(self.grass_x - 60, 0))
        self.grasstop.setFill("forest green")
-    
+
+#create class Bunny at given (random) x and y coordinate position, and initialize direction "right" to be True
+#"right" is a given parameter bc bunny changes directions if it hits the edge of the window
 class Bunny:
    def __init__(self, bun_x, bun_y, right):
        self.right = right
@@ -354,9 +362,11 @@ class Bunny:
        self.bun.setFill("pink")
        self.buntail = Circle(Point(self.x + 60, self.y - 90), 20)
        self.buntail.setFill("white")
-   
+   #method to move bunny, either right or left depending on whether "right" is True or False
+   #bun slope is it's dx, dependant on the given equation of the sin wave on the coordinate plane
    def bun_move(self, bun_slope):
        self.bun_slope = bun_slope
+       #if bunny hits right edge, it moves left
        if self.x > 1000: 
             self.x -= 3
             self.bun_slope = (18 * pi * cos((3 * pi * self.x) / 1000) * sin((3 * pi * self.x) / 1000))/(5 * abs(sin((3 * pi * self.x) / 1000)))
@@ -366,7 +376,7 @@ class Bunny:
             self.bun.move(-3, -self.bun_slope)
             self.buntail.move(-3, -self.bun_slope)
             self.right = False
-
+        #if bunny hits left edge of window, it moves right
        elif self.x < 10:
             self.x += 3
             self.bun_slope = (18 * pi * cos((3 * pi * self.x) / 1000) * sin((3 * pi * self.x) / 1000))/(5 * abs(sin((3 * pi * self.x) / 1000)))
@@ -376,7 +386,7 @@ class Bunny:
             self.bun.move(3, self.bun_slope)
             self.buntail.move(3, self.bun_slope)
             self.right = True
-            
+        #because parameter right = True, bunny moves right    
        if self.right: 
             self.x += 3
             self.bun_slope = (18 * pi * cos((3 * pi * self.x) / 1000) * sin((3 * pi * self.x) / 1000))/(5 * abs(sin((3 * pi * self.x) / 1000)))
@@ -385,7 +395,7 @@ class Bunny:
             self.bunbody.move(3, self.bun_slope)
             self.bun.move(3, self.bun_slope)
             self.buntail.move(3, self.bun_slope)
-
+        #becase parameter right = False, bunny moves left
        else:
             self.x -= 3
             self.bun_slope = (18 * pi * cos((3 * pi * self.x) / 1000) * sin((3 * pi * self.x) / 1000))/(5 * abs(sin((3 * pi * self.x) / 1000)))
@@ -395,6 +405,7 @@ class Bunny:
             self.bun.move(-3, -self.bun_slope)
             self.buntail.move(-3, -self.bun_slope)
 
+#create class Fox at given (random) x poisiton, constant y position, and initialize "right2" to be True
 class Fox:
    def __init__(self, fox_x, fox_y, right2):
        self.right2 = right2
@@ -413,8 +424,10 @@ class Fox:
        self.foxnose = Polygon(Point(self.x, self.y - 10), Point(self.x + 10, self.y), Point(self.x - 10, self.y))
        self.foxnose.setFill("black")
 
+    #fox slope is 0 since it moves in horizontal path, movement based on edges similar logic to bunny movement
    def fox_move(self, fox_slope):
        self.fox_slope = fox_slope
+       #move left
        if self.x > 1000:
             self.x -= 10
             self.fox_slope = 0
@@ -425,7 +438,7 @@ class Fox:
             self.foxtail.move(-15, self.fox_slope)
             self.foxnose.move(-15, self.fox_slope)
             self.right2 = False
-            
+       #move right
        elif self.x < 0:
             self.x += 10
             self.fox_slope = 0
@@ -436,7 +449,7 @@ class Fox:
             self.foxtail.move(15, self.fox_slope)
             self.foxnose.move(15, self.fox_slope)
             self.right2 = True
-            
+        #because right = True, move right    
        if self.right2:
             self.x += 10
             self.fox_slope = 0
@@ -446,7 +459,7 @@ class Fox:
             self.foxear2.move(15, self.fox_slope)
             self.foxtail.move(15, self.fox_slope)
             self.foxnose.move(15, self.fox_slope)
-            
+        #because right = False, move left    
        else:
             self.x -= 10
             self.fox_slope = 0
@@ -457,6 +470,7 @@ class Fox:
             self.foxtail.move(-15, self.fox_slope)
             self.foxnose.move(-15, self.fox_slope)
 
+#create class Eagle at given (random) x coordinate and corresponding y coordinate, initialize right3 to be True
 class Eagle:
    def __init__(self, eagle_x, eagle_y, right3):
        self.right3 = right3
@@ -472,9 +486,10 @@ class Eagle:
        self.eaglebody.setFill("peru")
        self.eaglewing1.setFill("peru")
        self.eaglewing2.setFill("peru")
-
+    #eagle movement method based on same logic as other animals, eagle slope representing dx of given equation
    def eagle_move(self, eagle_slope):
        self.eagle_slope = eagle_slope
+       #move left
        if self.x > 1000:
             self.x -= 5
             self.eagle_slope = (150 * cos((self.x/90) + 18))/9
@@ -484,7 +499,7 @@ class Eagle:
             self.eaglewing2.move(-5,-self.eagle_slope)
             self.eaglebeak.move(-5,-self.eagle_slope)
             self.right3 = False
-
+        #move right
        elif self.x < 0:
             self.x += 5
             self.eagle_slope = (150 * cos((self.x/90) + 18))/9
@@ -494,7 +509,7 @@ class Eagle:
             self.eaglewing2.move(5,self.eagle_slope)
             self.eaglebeak.move(5,self.eagle_slope)
             self.right3 = True
-
+        #because right = True, move right 
        if self.right3:
             self.x += 5
             self.eagle_slope = (150 * cos((self.x/90) + 18))/9
@@ -503,7 +518,7 @@ class Eagle:
             self.eaglewing1.move(5,self.eagle_slope)
             self.eaglewing2.move(5,self.eagle_slope)
             self.eaglebeak.move(5,self.eagle_slope)
-
+        #because right = False, move left 
        else:
             self.x -= 5
             self.eagle_slope = (150 * cos((self.x/90) + 18))/9
@@ -512,7 +527,6 @@ class Eagle:
             self.eaglewing1.move(-5,-self.eagle_slope)
             self.eaglewing2.move(-5,-self.eagle_slope)
             self.eaglebeak.move(-5,-self.eagle_slope)
-
 
 if __name__ == '__main__':
     main()
