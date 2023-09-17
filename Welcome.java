@@ -2,6 +2,8 @@
 
 import java.util.Scanner;
 import java.lang.StringBuilder;
+import java.util.StringJoiner;
+
 
 public class Welcome {
     public static void main(String[] args){
@@ -32,7 +34,9 @@ public class Welcome {
         //Triangle of numbers
         String delimiter = ", ";
         StringJoiner triangle = new StringJoiner(delimiter);
-        triangle.add("a");
+        for (int i = 1; i <= number; i++){
+            triangle.add(i);
+        }
         System.out.println(triangle);
         
         //if (number > 0) {
