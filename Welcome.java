@@ -19,27 +19,30 @@ public class Welcome {
         //Printing user's name
         System.out.println("Welcome " + username);
 
-        //Printing name backwards
-
-        //need to split the string into characters and append these characters into an array?????
-
-        //finding the length of the username for a for loop
+        //Printing name backwards using a for loop over the length of the name
         int lengthOfUsername = username.length();
-        System.out.println(lengthOfUsername);
-        /**StringBuilder charUsername = new StringBuilder();
-        for (int i = 0; i <= lengthOfUsername; i++){
-            charUsername.append(username.charAt(i));
-        }
-        */
-        for (int i = 0; i < lengthOfUsername; i++){
-            System.out.println(username.charAt(i));
-            insert(int 0, charAt(i));
+
+        StringBuilder nameBackwards = new StringBuilder();
+        for (int i = 1; i <= lengthOfUsername; i++){
+            nameBackwards.append(username.charAt(lengthOfUsername - i));
         }
 
+        System.out.println("Your name backwards is " + nameBackwards);
         
-        //System.out.println(istilldk);
-        //StringBuilder nameBackwards = username.reverse(); //only for character sequence
-        //System.out.println("Your name backwards is" + nameBackwards);
+        //Triangle of numbers
+        String delimiter = ", ";
+        StringJoiner triangle = new StringJoiner(delimiter);
+        triangle.add("a");
+        System.out.println(triangle);
+        
+        //if (number > 0) {
+            //for (int i = 1; i <= number; i++){
+                //System.out.println(i);
+                //for (int n = 1; n <= number; n++){
+                    //System.out.println(n);
+                //}
+            //}
+        //}
 
     } 
 }
