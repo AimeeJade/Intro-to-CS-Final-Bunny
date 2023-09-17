@@ -31,13 +31,27 @@ public class Welcome {
 
         System.out.println("Your name backwards is " + nameBackwards);
         
-        //Triangle of numbers
-        String delimiter = ", ";
-        StringJoiner triangle = new StringJoiner(delimiter);
-        for (int i = 1; i <= number; i++){
-            triangle.add(i);
+        for (int j = 1; j <= number; j++){
+            for (int k = 1; k <= j; k++){
+                System.out.print(j);
+            }
+            System.out.println();
         }
-        System.out.println(triangle);
+        
+        
+        //StringJoiner triangle = new StringJoiner('"');
+        //for (int i = 1; i <= number; i++) {
+            //triangle.add(i);
+            //System.out.println(triangle);
+
+        
+        //Triangle of numbers
+        //String delimiter = ", ";
+        //StringJoiner triangle = new StringJoiner(delimiter);
+        //for (int i = 1; i <= number; i++){
+            //triangle.add(i);
+        //}
+        //System.out.println(triangle);
         
         //if (number > 0) {
             //for (int i = 1; i <= number; i++){
