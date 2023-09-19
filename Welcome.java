@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 
 public class Welcome {
     public static void main(String[] args){
-        System.out.println("Welcome to CS 201: Data Structures");
+        System.out.println("Welcome to CS 201: Data Structures!");
         
         //asking for user's name
         System.out.println("What is your name?");
@@ -17,9 +17,10 @@ public class Welcome {
         
         //asking for an integer
         System.out.println("Please enter an integer");
+        
+        
         int number = scan.nextInt();
-        int x = Integer.signum(number);
-        System.out.println(x);
+        int numValue = Integer.signum(number); //checking if the integer inputed is postive, negative, or 0
 
         //Printing user's name
         System.out.println("Welcome " + username);
@@ -34,28 +35,38 @@ public class Welcome {
 
         System.out.println("Your name backwards is " + nameBackwards);
         
-        //Printing out a triangle from the integer
-/**
-        for (int j = 1; j <= number; j++){
-            for (int k = 1; k <= j; k++){
-                if (k < j){
-                    System.out.print(j + ", ");
-            }
-            else {
-                System.out.println(j);
-            }
-        }
-    }*/
-        for (int j = 1; j <= number; j++){
-            for (int k = 1; k <= j; k++){
-                if (k < j){
-                    System.out.print(j + ", ");
-            }
-            else {
-                System.out.println(j);
+        //Printing out a triangle made of integers
+        if (numValue == 1){ //If the integer the user inputed is positive
+            for (int j = 1; j <= number; j++){
+                for (int k = 1; k <= j; k++){
+                    if (k < j){
+                        System.out.print(j + ", ");
+                }
+                else {
+                    System.out.println(j);
+                }
             }
         }
-}
+
+        }
+
+        if (numValue == -1){ //If the integer the user inputed was negative
+            for (int j = -1; j >= number; j--){
+                for (int k = -1; k >= j; k--){
+                    if (k > j){
+                        System.out.print(j + ", ");
+                }
+                else {
+                    System.out.println(j);
+                }
+            }
+    }
+
+        }
+        if (numValue == 0){
+            System.out.println("Cannot print a triangle of height 0");
+        }
+        
         
 
     } 
