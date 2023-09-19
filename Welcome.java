@@ -1,4 +1,4 @@
-//Welcome App, Homework 2 for Data Structures
+//Welcome App, Homework 2 for Data Structures 201
 //@author Aimee Yuan
 
 import java.util.Scanner;
@@ -10,7 +10,7 @@ public class Welcome {
     public static void main(String[] args){
         System.out.println("Welcome to CS 201: Data Structures!");
         
-        //asking for user's name
+        //asking for a name
         System.out.println("What is your name?");
         Scanner scan = new Scanner(System.in);
         String username = scan.nextLine();
@@ -19,7 +19,7 @@ public class Welcome {
         System.out.println("Please enter an integer");
         try {
             int number = scan.nextInt();
-            int numValue = Integer.signum(number); //checking if the integer inputed is postive, negative, or 0
+            int numValue = Integer.signum(number); //checking if the integer inputted is postive, negative, or 0
 
             //Printing user's name
             System.out.println("Welcome " + username);
@@ -35,7 +35,7 @@ public class Welcome {
             System.out.println("Your name backwards is " + nameBackwards);
         
             //Printing out a triangle made of integers
-            if (numValue == 1){ //If the integer the user inputed is positive
+            if (numValue == 1){ //If the integer the user inputted is positive
                 for (int j = 1; j <= number; j++){
                     for (int k = 1; k <= j; k++){
                         if (k < j){
@@ -49,7 +49,7 @@ public class Welcome {
 
             }
 
-            if (numValue == -1){ //If the integer the user inputed was negative
+            if (numValue == -1){ //If the integer the user inputted was negative
                 for (int j = -1; j >= number; j--){
                     for (int k = -1; k >= j; k--){
                         if (k > j){
@@ -62,7 +62,7 @@ public class Welcome {
         }
 
             }
-            if (numValue == 0){
+            if (numValue == 0){ //If the integer inputted was 0
                 System.out.println("Cannot print a triangle of height 0");
             }
             }
