@@ -1,4 +1,5 @@
-//Aimee Yuan, Welcome App
+//Welcome App, Homework 2 for Data Structures
+//@author Aimee Yuan
 
 import java.util.Scanner;
 import java.lang.StringBuilder;
@@ -11,12 +12,14 @@ public class Welcome {
         
         //asking for user's name
         System.out.println("What is your name?");
-        Scanner idkfornow = new Scanner(System.in);
-        String username = idkfornow.nextLine();
+        Scanner scan = new Scanner(System.in);
+        String username = scan.nextLine();
         
         //asking for an integer
         System.out.println("Please enter an integer");
-        int number = idkfornow.nextInt();
+        int number = scan.nextInt();
+        int x = Integer.signum(number);
+        System.out.println(x);
 
         //Printing user's name
         System.out.println("Welcome " + username);
@@ -31,36 +34,29 @@ public class Welcome {
 
         System.out.println("Your name backwards is " + nameBackwards);
         
+        //Printing out a triangle from the integer
+/**
         for (int j = 1; j <= number; j++){
             for (int k = 1; k <= j; k++){
-                System.out.print(j);
+                if (k < j){
+                    System.out.print(j + ", ");
             }
-            System.out.println();
+            else {
+                System.out.println(j);
+            }
         }
+    }*/
+        for (int j = 1; j <= number; j++){
+            for (int k = 1; k <= j; k++){
+                if (k < j){
+                    System.out.print(j + ", ");
+            }
+            else {
+                System.out.println(j);
+            }
+        }
+}
         
-        
-        //StringJoiner triangle = new StringJoiner('"');
-        //for (int i = 1; i <= number; i++) {
-            //triangle.add(i);
-            //System.out.println(triangle);
-
-        
-        //Triangle of numbers
-        //String delimiter = ", ";
-        //StringJoiner triangle = new StringJoiner(delimiter);
-        //for (int i = 1; i <= number; i++){
-            //triangle.add(i);
-        //}
-        //System.out.println(triangle);
-        
-        //if (number > 0) {
-            //for (int i = 1; i <= number; i++){
-                //System.out.println(i);
-                //for (int n = 1; n <= number; n++){
-                    //System.out.println(n);
-                //}
-            //}
-        //}
 
     } 
 }
