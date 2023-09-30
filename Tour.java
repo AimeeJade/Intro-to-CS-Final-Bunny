@@ -107,7 +107,6 @@ public class Tour {
             length = length + newdistance;
             current = current.next;
         }
-        System.out.println(length);
         return length;
 
     }
