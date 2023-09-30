@@ -95,7 +95,7 @@ public class Tour {
         }
         current.next =lastNode;
         System.out.println("SMILE");
-        System.out.print(current.data);
+        System.out.println(current.data);
     }
 
     
@@ -120,15 +120,16 @@ public class Tour {
         //One example test could be the follow (uncomment to run):
         
         Tour tour = new Tour();
-        Point p = new Point(0,0);
+        Point p = new Point(1,0);
         tour.insertNearest(p);
-        p = new Point(0,100);
+        p = new Point(5,100);
         tour.insertNearest(p);
-        p = new Point(100, 100);
+        p = new Point(120, 100);
         tour.insertNearest(p);
         //System.out.println("Tour distance =  "+ tour.distance());
         //System.out.println("Number of points = "+ tour.size());
-        System.out.println(tour.getData());
+        System.out.println(p.distanceTo(p));
+        System.out.println(p.toString());
         
          
 
