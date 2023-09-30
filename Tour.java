@@ -93,16 +93,24 @@ public class Tour {
         while (current.next != null){
             current = current.next;
         }
-        current.next =lastNode;
-        System.out.println("SMILE");
-        System.out.println(current.data);
+        current.next = lastNode;
+        System.out.println(p.toString());
     }
 
     
-    //public double distance(Point p, Point p){
-        //double length = p.
+    public double distance(Point p){
+        Node current = head;
+        double length = 0;
+        while (current != null){
+            double newdistance = current.p.distanceTo(p);
+            System.out.println(newdistance);
+            length = length + newdistance;
+            current = current.next;
+        }
+        System.out.println(length);
+        return length;
 
-    //
+    }
     
     public void insertSmallest(Point p) {
 
@@ -120,16 +128,14 @@ public class Tour {
         //One example test could be the follow (uncomment to run):
         
         Tour tour = new Tour();
-        Point p = new Point(1,0);
+        Point p = new Point(0,0);
         tour.insertNearest(p);
-        p = new Point(5,100);
+        p = new Point(0,100);
         tour.insertNearest(p);
-        p = new Point(120, 100);
+        p = new Point(100, 100);
         tour.insertNearest(p);
-        //System.out.println("Tour distance =  "+ tour.distance());
+        System.out.println("Tour distance =  " + tour.distance(p));
         //System.out.println("Number of points = "+ tour.size());
-        System.out.println(p.distanceTo(p));
-        System.out.println(p.toString());
         
          
 
