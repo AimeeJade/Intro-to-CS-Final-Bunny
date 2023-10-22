@@ -5,7 +5,7 @@
  *
  * @author Layla Oesper 
  * @author Eric Alexander
- * @author AIMEE YUAN
+ * @author YOUR_NAME_HERE
 */
 
 /* Note <E extends Comparable<E> means this container
@@ -52,7 +52,7 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         if (index < 0 || index >= numItems) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         } 
-        Node<E> node = getNode(index, head);
+        Node<E> node = getNode(index);
         return node.data;
     }
     
@@ -60,14 +60,12 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
      * Helper method that retrieves the Node<E> stored at 
      * the specified index.
      */
-    private Node<E> getNode(int index, Node<E> current) {
-        if (index == 0){
-            return current;
+    private Node<E> getNode(int index) {
+        Node<E> node = head;
+        for (int i = 0; i < index && node != null; i++) {
+            node = node.next;
         }
-        if (index < 0 || current.next == null){
-            throw new IndexOutOfBoundsException(Integer.toString(index));//throw smth here
-        }
-        return getNode( index - 1, current.next);
+        return node;
     }
     
     /**
@@ -82,8 +80,7 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         
         if (index == 0){
             return removeFirst();
-        } 
-        else {
+        } else {
             Node<E> before = getNode(index - 1);
             return removeAfter(before);
         }
@@ -136,7 +133,7 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         if (index == 0) {
             addFirst(anEntry);
         } else {
-            Node<E> node = getNode(index - 1, head);
+            Node<E> node = getNode(index - 1);
             addAfter(node, anEntry);
         }
     }
@@ -210,18 +207,20 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         s = s + "]";
         return s;
     }
-
-    public Node<E> helperFunction(Node<E> current){ //some node, im not sure which one yet 
+    
+     public E helperFunction(Node<E> current, E max){ //some node, im not sure which one yet 
         if (numItems == 0){
-            return current;
+            return null;
         }
-        else { 
-            int bob = current.compareTo(current.next); //make this recursive
-            if (bob > 0){
-                return bob;
-            }
-            current = current.next;
+        if (current.data.compareTo(max) > 0){
+            max = current.data;
         }
+        if (current.next == null){
+            return max;
+        }
+    
+        return helperFunction(current.next, max);
+        
     }
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -232,8 +231,7 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
      **/
     public E max(){
         Node current = head;
-        helperFunction(current);
-        return current;
+        return helperFunction(current, current.data);
     }
 
     /**
@@ -268,8 +266,8 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         l.add("hello");
         l.add("world");
         System.out.println("List is: " + l);
-        Integer one = new Integer(1);
-        Integer two = new Integer(2);
+        Integer one = 1;
+        Integer two = 2;
         int comp = one.compareTo(two);
         System.out.println(comp);
         RecursiveLinkedList<Integer> numbers = new RecursiveLinkedList<Integer>();
@@ -277,8 +275,7 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         numbers.add(3);
         numbers.add(2);
         System.out.print(numbers);
-        numbers.helperFunction(numbers);
-
+        System.out.print(numbers.max());
     }
     
 }
