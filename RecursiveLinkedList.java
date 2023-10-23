@@ -5,7 +5,7 @@
  *
  * @author Layla Oesper 
  * @author Eric Alexander
- * @author YOUR_NAME_HERE
+ * @author Aimee Yuan
  */
 
 /* Note <E extends Comparable<E> means this container
@@ -208,85 +208,106 @@ public class RecursiveLinkedList<E extends Comparable<E>>{
         return s;
     }
 
-    /**
-     * Return the maximum element in the list using
-     * compareTo() method of Comparable.
-     *
-     * @return maximum element of the list
-     **/
+    //Returns the max element of the list
     public E max(){
         return maxHelper(head, null);
     }
 
+    //Helper class with parameters of a node current and a max value
     private E maxHelper(Node<E> current, E max) {
+        //If there are no items in the list, the max is null
         if (numItems == 0){
             return null;
         }
+        //Make max equal to the first item in the list
         if (max == null){
             max = current.data;
         }
+        //stop the recursion when you have travered through the entire list
         if (current == null){
             return max;
         }
+        //compare max to the current node's data. If the data is larger, make it the new max
         if (current.data.compareTo(max) >= 0){
             max = current.data;
         }
+        //recursive step 
         return maxHelper(current.next, max);
-        
     }
 
-    /**
-     * Remove all elements that match element using the 
-     * equals() operator to determine a match. 
-     * (Don't use ==).
-     *
-     * @param element The element that should be removed
-     **/
+    //Remove all nodes in the list with the same data as element
     public void removeAll(E element){
-        // YOUR CODE WILL GO HERE
-        // You will likely want to use a helper method
+        removeHelper(head, element, 0);
     }
-
-    /**
-     * Duplicate each element of the list
-     *
-     * For example, the list [ 0 1 2 ] duplicated becomes 
-     * [ 0 0 1 1 2 2 ]
-     **/
+    //Helper class with parameters of a current node, element/data, and index
+    private void removeHelper(Node<E> current, E element, int index) {
+        //Stop the recursion after traversing through the entire list for nodes with this element as its data
+        if (current == null){
+            return;
+        }
+        //If the data of the current node is equal to the element, remove the node from the list
+        if (current.data.equals(element)){
+            remove(index);
+            index--;
+        }
+        //increment the index to travers the list
+        index++;
+        //recursive step
+        removeHelper(current.next, element, index);
+    }
+    
+    //Duplicate each element of the list
     public void duplicate(){
-        // YOUR CODE WILL GO HERE
-        // You will likely want to use a helper method!
+        helperDuplicate(head, 0);
+    }
+    //Helper class with parameters of a current node and a index
+    private void helperDuplicate(Node<E> current, int index){
+        //If there are no items in the list, change nothing about the list
+        if (numItems == 0){
+            return;
+        }
+        //stop the recursion/traversing when you reach the end of the list
+        if (current == null){
+            return;
+        }
+        //While the index has not reached the end of the list, add a node after each of the original nodes that are its duplicate right after it
+        if (index != numItems){
+            add(index + 1, current.data);
+            //Move to the next original node to duplicate it
+            index = index + 2;
+        }
+        //recursize step
+        helperDuplicate(current.next.next, index);
     }
 
-    /**
-     * Here are a couple short tests. You should 
-     * should make sure to thoroughly test your code.
-     */
+    //Sample Test Cases
     public static void main(String[] args) {
-        RecursiveLinkedList<String> l = new RecursiveLinkedList<String>();
-        l.add("hello");
-        l.add("world");
-        System.out.println("List is: " + l);
-        RecursiveLinkedList<Integer> list = new RecursiveLinkedList<>();
-        list.add(1);
-        list.add(4);
-        list.add(2);
-        list.add(17);
-        list.add(52);
-        list.add(26);
-        list.add(13);
-        list.add(40);
-        list.add(20);
-        list.add(10);
-        list.add(5);
-        list.add(16);
-        list.add(8);
-        list.add(4);
-        list.add(2);
-        list.add(70);
+        System.out.println("Test Cases"+ "\n");
+        RecursiveLinkedList<String> list = new RecursiveLinkedList<String>();
+        list.add("hello");
+        list.add("world");
+        list.add("zebra");
+        list.add("apple");
 
-        System.out.println(list);
-        System.out.println(list.max());
+        System.out.println("String list is: " + list);
+        System.out.println("Max is: " + list.max());
+        list.removeAll("zebra");
+        System.out.println("Removed zebra: " + list);
+        list.duplicate();
+        System.out.println("Duplicated list: " + list);
+
+        System.out.println();
+        RecursiveLinkedList<Integer> list2 = new RecursiveLinkedList<Integer>();
+        list2.add(2);
+        list2.add(5);
+        list2.add(1);
+        list2.add(7);
+        System.out.println("int list is: " + list2);
+        System.out.println("Max is: " + list2.max());
+        list2.removeAll(5);
+        System.out.println("Removed 5: " + list2);
+        list2.duplicate();
+        System.out.println("Duplicated list: " + list2);
     }
 
 }
