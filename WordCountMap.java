@@ -26,14 +26,20 @@ public class WordCountMap {
    * Returns a list of WordCount objects, one per word stored in this
    * WordCountMap, sorted alphabetically by word.
    */
-    public ArrayList<WordCount> getWordCountsByWord(Node root) {
-        ArrayList<WordCount> list = new ArrayList<WordCount>();
-        if (root == null){
+   public ArrayList<WordCount> getWordCountsByWord() {
+    ArrayList<WordCount> list = new ArrayList<WordCount>();
+    list = getWordCountsByWordHelper(root, list);
+    return list;
+
+   }
+   public ArrayList<WordCount> getWordCountsByWordHelper(Node current, ArrayList<WordCount> list ) {
+        if (current == null){
             return list;
         }
-        getWordCountsByWord(root.left);
-        list.add(root.word);
-        getWordCountsByWord(root.right);
+        getWordCountsByWordHelper(current.left, list);
+        WordCount wordCountObject = new WordCount(current.word, current.count);
+        list.add(wordCountObject);
+        getWordCountsByWordHelper(current.right, list);
     }
 
     
@@ -141,7 +147,7 @@ public class WordCountMap {
         map.incrementCount("dog");
         System.out.println(node3.count);
         
-        System.out.println(map.getWordCountsByWord());
+        System.out.println(map.getWordCountsByWord(root));
 
     }
 }
